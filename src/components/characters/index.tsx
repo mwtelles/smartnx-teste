@@ -17,8 +17,6 @@ const Characters: React.FC = () => {
 
   const [characters, setCharacters] = useState([]);
 
-  const [searchedText, setSearchedText] = useState("");
-
   const columns = [
     {
       key: "1",
@@ -72,7 +70,6 @@ const Characters: React.FC = () => {
       onFilter: (value, record) => {
         return record.name.toLowerCase().includes(value.toLowerCase());
       },
-      // filteredValue: [searchedText],
     },
     {
       key: "2",
@@ -126,23 +123,6 @@ const Characters: React.FC = () => {
         lg={{ span: 24 }}
       >
         <Space direction="vertical" size="large" className="flex">
-          <AutoComplete
-            style={{ width: "100%" }}
-            popupClassName="certain-category-search-dropdown"
-            dropdownMatchSelectWidth={500}
-          >
-            <Input.Search
-              size="large"
-              placeholder="Pesquise o que quiser"
-              onSearch={(value) => {
-                setSearchedText(value);
-              }}
-              onChange={(e) => {
-                setSearchedText(e.target.value);
-              }}
-            />
-          </AutoComplete>
-
           <Table
             loading={loading}
             columns={columns}
