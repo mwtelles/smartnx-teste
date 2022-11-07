@@ -1,11 +1,14 @@
 import './App.css'
+
+import Characters from './components/characters'
+
 function App() {
 
   
 
   return (
     <div className="App">
-      <h1>Hello World</h1>
+      <Characters />
     </div>
   )
 }
