@@ -31,11 +31,17 @@ const Characters: React.FC = () => {
       key: "3",
       title: "Altura",
       dataIndex: "height",
+      sorter:(alturaAsc, alturaDes) => {
+        return alturaAsc.height > alturaDes.height
+      }
     },
     {
       key: "4",
       title: "Peso",
       dataIndex: "mass",
+      sorter:(pesoAsc, pesoDes) => {
+        return pesoAsc.mass > pesoDes.mass
+      }
     },
   ]
 
@@ -61,6 +67,8 @@ const Characters: React.FC = () => {
       pagination={{
         current:page,
         pageSize: pageSize,
+        total: characters.length,
+        showQuickJumper: true,
         onChange: (page, pageSize) => {
           setPage(page);
           setPageSize(pageSize);
