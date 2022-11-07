@@ -2,14 +2,18 @@ import './App.css'
 
 import Characters from './components/characters'
 
+import { Row, Col, Space } from 'antd'
+
 function App() {
 
   
 
   return (
-    <div className="App">
+    <Row>
+      <Col span={24}>
       <Characters />
-    </div>
+      </Col> 
+    </Row>
   )
 }
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { Api } from "../../services/api/axios-config";
 
-import { Table, Input, Button} from "antd";
+import { Table, Input, Button, AutoComplete, Row, Col, Space } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import { ClearOutlined } from "@ant-design/icons";
 
@@ -17,10 +17,7 @@ const Characters: React.FC = () => {
 
   const [characters, setCharacters] = useState([]);
 
-  const options = [{
-    label: 'name',
-    value: 'name',
-  }]
+  const [searchedText, setSearchedText] = useState("");
 
   const columns = [
     {
@@ -75,6 +72,7 @@ const Characters: React.FC = () => {
       onFilter: (value, record) => {
         return record.name.toLowerCase().includes(value.toLowerCase());
       },
+      // filteredValue: [searchedText],
     },
     {
       key: "2",
@@ -120,23 +118,49 @@ const Characters: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <Table
-        loading={loading}
-        columns={columns}
-        dataSource={characters}
-        pagination={{
-          current: page,
-          pageSize: pageSize,
-          total: characters.length,
-          showQuickJumper: true,
-          onChange: (page, pageSize) => {
-            setPage(page);
-            setPageSize(pageSize);
-          },
-        }}
-      />
-    </div>
+    <Row>
+      <Col
+        xs={{ span: 24 }}
+        sm={{ span: 24 }}
+        md={{ span: 24 }}
+        lg={{ span: 24 }}
+      >
+        <Space direction="vertical" size="large" className="flex">
+          <AutoComplete
+            style={{ width: "100%" }}
+            popupClassName="certain-category-search-dropdown"
+            dropdownMatchSelectWidth={500}
+          >
+            <Input.Search
+              size="large"
+              placeholder="Pesquise o que quiser"
+              onSearch={(value) => {
+                setSearchedText(value);
+              }}
+              onChange={(e) => {
+                setSearchedText(e.target.value);
+              }}
+            />
+          </AutoComplete>
+
+          <Table
+            loading={loading}
+            columns={columns}
+            dataSource={characters}
+            pagination={{
+              current: page,
+              pageSize: pageSize,
+              total: characters.length,
+              showQuickJumper: true,
+              onChange: (page, pageSize) => {
+                setPage(page);
+                setPageSize(pageSize);
+              },
+            }}
+          />
+        </Space>
+      </Col>
+    </Row>
   );
 };
 
