@@ -7,11 +7,51 @@
   font-weight: 400;
 }
 
-body {
+.flex {
   display: flex;
+}
+
+.rounded {
+  border-radius: 4px;
+}
+
+.border-blue-1 {
+  border: 1px solid #6bb8ff;
+}
+
+.m-y-1 {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.l-0 {
+  left: 0;
 }
 
 ul {
   list-style: none;
   padding: 0;
+}
+
+.searchInput {
+  border: 0;
+  padding: 5;
+}
+
+.clearButton {
+  border: 0;
+  padding: 5;
+}
+
+.searchButton {
+  border: 0;
+  padding: 5;
+}
+
+
+@media screen and (max-width: 700px) {
+
+ :root {
+  padding: 0 0px;
+ }
 }

@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 
 import { Api } from "../../services/api/axios-config";
 
-import { Table, Input } from "antd";
+import { Table, Input, Button} from "antd";
 import { SearchOutlined } from "@ant-design/icons";
+import { ClearOutlined } from "@ant-design/icons";
 
 import "antd/dist/antd.css";
 
@@ -16,37 +17,64 @@ const Characters: React.FC = () => {
 
   const [characters, setCharacters] = useState([]);
 
+  const options = [{
+    label: 'name',
+    value: 'name',
+  }]
+
   const columns = [
     {
       key: "1",
       title: "Nome",
       dataIndex: "name",
       filterDropdown: ({
-        setSelectedKeys, selectedKeys, confirm
+        setSelectedKeys,
+        selectedKeys,
+        confirm,
+        clearFilters,
       }) => {
         return (
-          <div>
-            <Input autoFocus placeholder="Pesquise pelo nome"
-            onPressEnter={() => {
-              confirm();
-            }}
-            onBlur={() => {
-              confirm();
-            }}
-            onChange={(e) => {
-              setSelectedKeys(e.target.value ? [e.target.value] : []);
-            }}
-            value={selectedKeys[0]}
-            ></Input>
+          <div className="flex rounded border-blue-1 m-y-1">
+            <Input
+              autoFocus
+              placeholder="Pesquise pelo nome"
+              onPressEnter={() => {
+                confirm();
+              }}
+              onBlur={() => {
+                confirm();
+              }}
+              onChange={(e) => {
+                setSelectedKeys(e.target.value ? [e.target.value] : []);
+              }}
+              value={selectedKeys[0]}
+              className="searchInput"
+            />
+            <Button
+              onClick={() => {
+                confirm();
+              }}
+              className="searchButton"
+            >
+              <SearchOutlined />
+            </Button>
+            <Button
+              onClick={() => {
+                clearFilters(), confirm();
+              }}
+              className="clearButton"
+            >
+              <ClearOutlined />
+            </Button>
           </div>
         );
       },
       filterIcon: () => {
         return <SearchOutlined />;
       },
-      onFilter:(value, record) => {
+      onFilter: (value, record) => {
         return record.name.toLowerCase().includes(value.toLowerCase());
-      }
+      },
     },
     {
       key: "2",
@@ -76,6 +104,7 @@ const Characters: React.FC = () => {
       sorter: (pesoAsc, pesoDes) => {
         return pesoAsc.mass > pesoDes.mass;
       },
+      responsive: ["md"],
     },
   ];
 
