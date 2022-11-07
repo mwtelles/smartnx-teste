@@ -16,6 +16,7 @@ const Characters: React.FC = () => {
 
   const [characters, setCharacters] = useState([]);
 
+
   const columns = [
     {
       key: "1",
@@ -26,6 +27,14 @@ const Characters: React.FC = () => {
       key: "2",
       title: "Gênero",
       dataIndex: "gender",
+      filters:[
+        {text: 'male', value:'male'},
+        {text: 'female', value:'female'},
+        {text: 'n/a', value:'n/a'},
+      ],
+      onFilter: (value, record) => {
+        return record.gender === value
+      }
     },
     {
       key: "3",
